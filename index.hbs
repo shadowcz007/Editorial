@@ -32,7 +32,7 @@ into the {body} of the default.hbs template --}}
 <section>
 
     <header class="major">
-        <h2>最近发布</h2>
+        <h2></h2>
     </header>
 
     <section class="posts">
@@ -54,4 +54,11 @@ into the {body} of the default.hbs template --}}
 
 {{!-- Pagination --}}
 {{pagination}}
+
+<script>
+    (()=>{
+        var texts=["无尽学习者","跨领域创新","交叉学科指南"];
+        document.querySelector(".major h2").innerText=texts[parseInt(Math.random()*texts.length)];
+    })();
+</script>
 
