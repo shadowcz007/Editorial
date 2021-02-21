@@ -9,13 +9,13 @@
         {{!-- Recent posts --}}
         <section>
             <header class="major">
-                <h2>最近🔥</h2>
+                <h2>推荐</h2>
             </header>
             <div class="mini-posts">
                 {{!-- We're just grabbing the 3 latest posts here but you can change
                 this to filter for a specific tag or order depending on what you want.
-                More info: https://docs.ghost.org/api/handlebars-themes/helpers/get/ --}}
-                {{#get "posts" limit="3" as |mini_post|}}
+                More info: https://docs.ghost.org/api/handlebars-themes/helpers/get/ filter="primary_tag.slug:recommend" --}}
+                {{#get "posts"  limit="5" include="tags" filter="featured:true" as |mini_post|}}
                     {{#foreach mini_post visibility="all"}}
                     <article>
                         <h3><a href="{{url}}">{{title}}</a></h3>

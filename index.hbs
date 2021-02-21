@@ -5,7 +5,7 @@ into the {body} of the default.hbs template --}}
 
 {{!-- Featured Post --}}
 {{#is "home"}}
-{{#get "posts" filter="featured:true" limit="1" as |featured_post|}}
+{{#get "posts" filter="featured:true" limit="3" as |featured_post|}}
     {{#foreach featured_post visibility="all"}}
         <article id="banner">
             <div class="content">
@@ -13,7 +13,6 @@ into the {body} of the default.hbs template --}}
                     <h1><a href="{{url}}">{{title}}</a></h1>
                     {{#if custom_excerpt}}<p>{{custom_excerpt}}</p>{{/if}}
                 </header>
-                {{content words="42"}}
                 <ul class="actions">
                     <li><a href="{{url}}" class="button big">更多🚀</a></li>
                 </ul>
@@ -36,16 +35,44 @@ into the {body} of the default.hbs template --}}
     </header>
 
     <section class="posts">
-        {{#foreach posts visibility="all"}}
+        {{#foreach posts filter="featured:false" include="tags,author"}}
         <article>
             {{#if feature_image}}
             <a href="{{url}}" class="image fit"><img src="{{img_url feature_image}}" alt="{{title}}" /></a>
             {{/if}}
             <h3><a href="{{url}}">{{title}}</a></h3>
+                <div>
+                    <div style="display: flex;align-items: center;">
+                        <img src="{{primary_author.profile_image}}" style="width: 24px;height: 24px;" />
+                        <p style="margin-left: 8px;
+    font-size: 10px;
+    font-family: monospace;
+    margin-bottom: 0;">{{primary_author.name}} / {{primary_author.bio}}</p>
+                    </div>
+                </div>
+                <div style="display: flex;
+    flex-wrap: wrap;
+    margin: 12px 0;
+">
+            {{#foreach tags limit="3"}}
+                    <div style="background: #f56a6a14;
+                        display: flex;
+                        width: fit-content;
+                        padding: 4px;
+                        color: #f56a6a;
+                        font-size: 12px;
+                        margin: 4px;">{{name}}</div>
+            {{/foreach}}
+            </div>
             <p>{{excerpt words="33"}}</p>
+            <p style="margin-left: 8px;
+    font-size: 10px;
+    font-family: monospace;
+    margin-bottom: 0;">{{reading_time minute="快看" minutes="% 人已阅"}} / 发布于 {{date published_at timeago="true"}}</p>
             <ul class="actions special">
                 <li><a href="{{url}}" class="button">查看</a></li>
             </ul>
+            {{log this}}
         </article>
         {{/foreach}}
     </section>
